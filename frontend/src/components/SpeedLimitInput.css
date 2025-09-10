@@ -1,0 +1,61 @@
+/* SpeedLimitInput.css - Styling for speed limit input component */
+
+.speed-limit-container {
+  width: 100%;
+  max-width: 300px;
+}
+
+.speed-limit-container h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.input-group:focus-within {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.speed-limit-input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.speed-limit-input::placeholder {
+  color: #999;
+}
+
+.input-unit {
+  padding: 1rem;
+  background: #f8f9fa;
+  color: #666;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-left: 1px solid #e0e0e0;
+}
+
+.input-hint {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+

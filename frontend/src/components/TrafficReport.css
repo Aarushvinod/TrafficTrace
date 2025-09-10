@@ -1,0 +1,112 @@
+/* TrafficReport.css - Styling for traffic report component */
+
+.traffic-report {
+  width: 100%;
+}
+
+.report-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.report-header h2 {
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.report-icon {
+  font-size: 2rem;
+}
+
+.report-content {
+  min-height: 200px;
+}
+
+.formatted-report {
+  line-height: 1.6;
+  color: #333;
+}
+
+.report-section-header {
+  color: #667eea;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.report-section-header:first-child {
+  margin-top: 0;
+}
+
+.report-paragraph {
+  margin: 1rem 0;
+  font-size: 1rem;
+  text-align: justify;
+}
+
+.report-list-item {
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+  position: relative;
+  font-size: 1rem;
+}
+
+.report-list-item::before {
+  content: "•";
+  color: #667eea;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.no-report-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #666;
+  font-style: italic;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 2px dashed #e0e0e0;
+}
+
+.report-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.report-timestamp {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Responsive design for report */
+@media (max-width: 768px) {
+  .report-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .report-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .report-paragraph {
+    text-align: left;
+  }
+}
+
