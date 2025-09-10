@@ -1,5 +1,4 @@
 import cv2
-from deep_sort_realtime.deepsort_tracker import DeepSort
 from VehicleDetector import YoloDetector
 
 #Includes a lot of the primary functionilities of the traffic monitoring system
@@ -148,20 +147,3 @@ def generate_traffic_report(object_detector, video_writer, object_tracker, SPEED
     report_to_buffer(True, report_buffer)
     video_writer.release()
     return report_buffer
-
-object_tracker = DeepSort(
-    max_age = 20,
-    n_init = 2,
-    nms_max_overlap = 1.0,
-    max_cosine_distance = 0.4,
-    nn_budget = None,
-    override_track_class = None,
-    embedder = "mobilenet",
-    half = True,
-    bgr = True,
-    embedder_gpu = True,
-    embedder_model_name = None,
-    embedder_wts = None,
-    polygon = False,
-    today = None
-)
