@@ -41,4 +41,3 @@ class Job:
         )
         return helpers.generate_traffic_report(self.object_detector, self.video_writer, object_tracker, speed)
 
-
