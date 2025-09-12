@@ -73,53 +73,59 @@ function App() {
 
     try {
       // ===========================================
-      // BACKEND API CALLS - PLACE YOUR LOGIC HERE
+      // BACKEND API CALLS - FLASK SERVER INTEGRATION
       // ===========================================
       
-      // TODO: Replace this section with your actual backend API calls
-      // 1. Stream video frames to your Flask server
-      // 2. Receive processed frames as JPEG byte strings
-      // 3. Display frames in real-time
-      // 4. After processing is complete, fetch the traffic report
-      
-      // Example structure for your API calls:
-      /*
+      // Step 1: Create job and upload video file
       const formData = new FormData();
-      formData.append('video', uploadedFile);
-      formData.append('speedLimit', speedLimit);
-
-      // Start streaming frames to backend
-      const response = await fetch('http://your-flask-server:port/analyze-video', {
+      formData.append('file', uploadedFile);
+      
+      const jobResponse = await fetch('http://localhost:5000/get_job', {
         method: 'POST',
         body: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
       });
-
-      // Handle streaming response
-      const reader = response.body.getReader();
+      
+      if (!jobResponse.ok) {
+        throw new Error(`Failed to create job: ${jobResponse.statusText}`);
+      }
+      
+      const jobData = await jobResponse.json();
+      const jobId = jobData.job_id;
+      
+      // Step 2: Stream processed frames from distance estimation endpoint
+      const streamResponse = await fetch(`http://localhost:5000/distance_estimation/${jobId}`);
+      
+      if (!streamResponse.ok) {
+        throw new Error(`Failed to start processing: ${streamResponse.statusText}`);
+      }
+      
+      // Handle streaming response for processed frames
+      const reader = streamResponse.body.getReader();
+      
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
         
-        // Process received frame data
-        const frameData = new Uint8Array(value);
-        setProcessedFrames(prev => [...prev, frameData]);
+        // Convert JPEG byte string to blob URL for display
+        const jpegBlob = new Blob([value], { type: 'image/jpeg' });
+        const frameUrl = URL.createObjectURL(jpegBlob);
+        setProcessedFrames(prev => [...prev, frameUrl]);
       }
-
-      // After processing is complete, fetch the report
-      const reportResponse = await fetch('http://your-flask-server:port/get-report');
+      
+      // Mark processing as complete
+      setIsProcessingComplete(true);
+      
+      // Step 3: Fetch final report with speed limit
+      const reportResponse = await fetch(`http://localhost:5000/final_report/${jobId}/speed/${speedLimit}`);
+      
+      if (!reportResponse.ok) {
+        throw new Error(`Failed to get report: ${reportResponse.statusText}`);
+      }
+      
       const reportData = await reportResponse.json();
       setTrafficReport(reportData.report);
-      */
       
-      // Temporary simulation - REMOVE THIS WHEN IMPLEMENTING REAL API CALLS
-      setTimeout(() => {
-        setIsProcessingComplete(true);
-        setTrafficReport('Sample traffic analysis report will appear here after processing...');
-        setIsAnalyzing(false);
-      }, 3000);
+      setIsAnalyzing(false);
 
     } catch (error) {
       console.error('Error during analysis:', error);
