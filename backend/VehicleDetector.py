@@ -1,15 +1,14 @@
 from ultralytics import YOLO
 import cv2
+import TrafficMonitoring as helpers
 
 class YoloDetector:
 
     def __init__(self, vehicle_model, accident_model):
         self.vehicle_model: YOLO = vehicle_model
         self.accident_model: YOLO = accident_model
-        
         self.original_frames = list()
         self.annotated_frames = list()
-        
         self.wanted_names = {'bicycle', 'car', 'motorbike', 'bus', 'truck'}
         self.cache = list()
         self.pixel_distance = None

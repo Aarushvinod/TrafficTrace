@@ -1,5 +1,4 @@
 import cv2
-from VehicleDetector import YoloDetector
 
 #Includes a lot of the primary functionilities of the traffic monitoring system
 
@@ -20,7 +19,10 @@ def estimate_distance(video_cap, object_detector):
         if curr_val:
             frame_count += 1
             distance_score += curr_val
-        yield annotated_frame
+        val, buf = cv2.imencode(".jpg", annotated_frame)
+        if not val: continue
+        jpg = buf.tobytes()
+        yield (b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + jpg + b"\r\n")
     video_cap.release()
     object_detector.pixel_distance = distance_score/frame_count
 

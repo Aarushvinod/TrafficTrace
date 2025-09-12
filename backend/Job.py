@@ -19,9 +19,6 @@ class Job:
         self.job_id = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
         return self.job_id
 
-    def run_distance_estimation(self):
-        helpers.estimate_distance(self.video_capture, self.object_detector)
-
     def generate_report(self, speed):
         object_tracker = object_tracker = DeepSort(
             max_age = 20,
@@ -40,4 +37,3 @@ class Job:
             today = None
         )
         return helpers.generate_traffic_report(self.object_detector, self.video_writer, object_tracker, speed)
-
