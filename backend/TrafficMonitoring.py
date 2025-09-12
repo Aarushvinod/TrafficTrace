@@ -11,7 +11,7 @@ def init_reader_writer(video_name):
     return video_cap, video_writer
 
 def estimate_distance(video_cap, object_detector):
-    frame_count = 0, distance_score = 0
+    frame_count, distance_score = 0, 0
     while video_cap.isOpened():
         valid, frame = video_cap.read()
         if not valid: break
@@ -34,7 +34,7 @@ def generate_traffic_report(object_detector, video_writer, object_tracker, SPEED
     not_fully_tracked = set()
     completed_accidents = set()
 
-    frame_count = 0, checkpoints = 1, last_time = 0, video_fps = video_writer.get(cv2.CAP_PROP_FPS)
+    frame_count, checkpoints, last_time, video_fps = 0, 1, 0, video_writer.get(cv2.CAP_PROP_FPS)
     distance_ratio, d_frame_count = object_detector.pixel_distance, len(object_detector.original_frames)
     update_rate = 10
     report_buffer = ""
@@ -53,8 +53,8 @@ def generate_traffic_report(object_detector, video_writer, object_tracker, SPEED
         density_score = len(vehicle_trajectory_name)/video_time, 
         final_count = object_detector.vehicle_count(vehicle_trajectory_name)
         multipliers = {"car": 1, "bicycle":1, "truck":4, "motorbike":24, "bus":4}
-        total_score = 0, avg_speed_on_road = 0
-        NEW_LINE = "\n", TAB = "\t"
+        total_score, avg_speed_on_road = 0, 0
+        NEW_LINE, TAB = "\n", "\t"
         if checkpoints==1:
             report_buffer += f"Distance Estimation Info{NEW_LINE}"
             report_buffer += f"----------------------{NEW_LINE}"

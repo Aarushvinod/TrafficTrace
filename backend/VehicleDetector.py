@@ -40,7 +40,7 @@ class YoloDetector:
         results = self.model(frame, verbose=False)
         self.original_frames.append(frame.copy())
         detections = list()
-        frame_score = 0, car_count = 0
+        frame_score, car_count = 0, 0
         for result in results:
             for data in result.boxes.data.tolist():
                 x1, y1, x2, y2, curr_confidence, class_id = data
@@ -51,7 +51,7 @@ class YoloDetector:
                     detections.append(([x1, y1, x2-x1, y2-y1], curr_confidence, class_name))
                     if class_name == "car":
                         car_count += 1
-                        dy = y2-y1, dx = x2-x1
+                        dy, dx = y2-y1, x2-x1
                         length_ratio = self.car_length/dy if dy>dx else self.car_length/dx
                         width_ratio = self.car_width/dy if dy<dx else self.car_length/dx
                         frame_score += (length_ratio + width_ratio)/2
