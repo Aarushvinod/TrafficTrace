@@ -17,8 +17,8 @@ with app.app_context():
         curr_model.fuse()
         curr_model.to('cuda' if torch.cuda.is_available() else 'cpu')
         return curr_model
-    vehicle_detection_model = load_model("models/yolov11m.pt")
-    accident_detection_model = load_model("models/AccidentDetection.pt")
+    vehicle_detection_model = load_model("models/MainDetector.pt")
+    accident_detection_model = load_model("models/AccidentDetector.pt")
     jobs = dict()
 
 def allowed_file(filename):

@@ -2,6 +2,7 @@
 frontend/node_modules/
 *.pt
 *.mp4
+backend/__pycache__
 
 
 
